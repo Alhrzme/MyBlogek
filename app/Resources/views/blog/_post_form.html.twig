@@ -1,0 +1,23 @@
+
+{{ form_start(form) }}
+
+<div class="text-danger">
+    {{ form_errors(form.title) }}
+    {{ form_errors(form.body) }}
+    {{ form_errors(form.summary) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.body) }}
+    {{ form_widget(form.body) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.summary) }}
+    {{ form_widget(form.summary) }}
+</div>
+<input type="submit" value="{{ button_label| default('button.createPost.value'|trans) }}"
+       class="btn btn-default btn-primary" />
+{{ form_end(form) }}

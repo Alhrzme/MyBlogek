@@ -1,0 +1,11 @@
+label.postTitle: 'Заголовок поста'
+label.postBody: Содержание поста
+label.postSummary: Краткое содержание
+title.createPost: Создание поста
+title.editPost: Редактирование поста
+title.mainPage: Бложек
+button.createPost.value: Создать
+href.mainPage.text: Главная
+href.newPost.text: Новый пост
+button.editPost.value: Внести изменения
+button.deletePost.value: Удалить пост

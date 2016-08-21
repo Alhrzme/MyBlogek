@@ -1,0 +1,7 @@
+{% extends 'blog/layout.html.twig' %}
+{% set title = 'title.editPost'|trans %}
+{% block content %}
+    {{ include('blog/_post_form.html.twig', {
+        button_label: 'button.editPost.value'|trans,
+    }) }}
+{% endblock %}

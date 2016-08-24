@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/AppKernel.php">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/Resources/Utils/TextHandler.php">
           <value>
             <set />
@@ -103,6 +108,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/config/security.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/config/services.yml">
           <value>
             <set />
@@ -118,12 +128,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/AppBundle/Entity/Comment.php">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/AppBundle/Entity/Post.php">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/AppBundle/Entity/Posts.php">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/AppBundle/Entity/User.php">
           <value>
             <set />
           </value>

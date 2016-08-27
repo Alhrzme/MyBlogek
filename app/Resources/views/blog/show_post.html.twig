@@ -1,18 +1,20 @@
 {% extends 'blog/layout.html.twig' %}
 {% set title = post.title %}
 {% block content %}
-        <div style="border-bottom: 1px solid #eee; min-height: 20em;">
-                {{  post.body | raw }}
-        </div>
+    <div style="border-bottom: 1px solid #eee; min-height: 20em;">
+            {{  post.body | raw }}
+    </div>
 
-        {# Этот блок будет только для одминов#}
-        <div class="row text-right">
-                <a href="{{ path('edit_post_page', {postId: post.postId}) }}" class="btn btn-primary">
-                        {{ 'button.editPost.value'|trans }}
-                </a>
-                <a href="{{ path('delete_post_page', {postId: post.postId}) }}" class="btn btn-danger">
-                        {{ 'button.deletePost.value'|trans }}
-                </a>
-        </div>
+    {# Этот блок будет только для одминов#}
+    <div class="row text-right">
+            <a href="{{ path('edit_post_page', {id: post.id}) }}" class="btn btn-primary">
+                    {{ 'button.editPost.value'|trans }}
+            </a>
+            <a href="{{ path('delete_post_page', {id: post.id}) }}" class="btn btn-danger">
+                    {{ 'button.deletePost.value'|trans }}
+            </a>
+    </div>
+    {{ include('blog/_comment_form.html.twig') }}
+    {{ include('blog/_show_comments.html.twig') }}
 
 {% endblock %}

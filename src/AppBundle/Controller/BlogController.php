@@ -2,10 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use AppBundle\Form\CommentType;
 use AppBundle\Form\PostType;
+use Symfony\Bridge\PsrHttpMessage\Tests\Fixtures\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -30,7 +36,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/edit/{postId}", name="edit_post_page")
+     * @Route("/edit/{id}", name="edit_post_page")
      * @param Post $post
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -46,7 +52,7 @@ class BlogController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('show_post_page', ['postId' => $post->getPostId()] );
+            return $this->redirectToRoute('show_post_page', ['id' => $post->getId()] );
         }
         return $this->render('blog/edit.html.twig', [
             'post' => $post,
@@ -61,8 +67,11 @@ class BlogController extends Controller
      */
     public function newAction(Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
         $post = new Post();
-        $post->setCreatedByUserId(1);
+        $post->setCreatedByUserId($this->getUser()->getId());
 
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -76,7 +85,7 @@ class BlogController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Пост успешно создан');
-            return $this->redirectToRoute('show_post_page', ['postId' => $post->getPostId()] );
+            return $this->redirectToRoute('show_post_page', ['id' => $post->getId()] );
         }
         return $this->render('blog/new.html.twig', [
             'post' => $post,
@@ -85,7 +94,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/{postId}", name="delete_post_page")
+     * @Route("/delete/{id}", name="delete_post_page")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Post $post)
@@ -98,13 +107,48 @@ class BlogController extends Controller
     }
 
     /**
-     * Show post by id
-     * @Route("/post/{postId}", name="show_post_page")
+     * @Method("POST")
+     * @Route("/comment/new/{id}", name="comment_new")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param Request $request
      * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addCommentAction(Request $request, Post $post)
+    {
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentType::class, $comment);
+
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setUser($this->getUser());
+            $comment->setPost($post);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('show_post_page', [
+            'id' => $post->getId()
+        ]);
+    }
+
+    /**
+     * Show post by id
+     * @Route("/post/{id}", name="show_post_page")
+     * @param Post $post
+     * @ParamConverter("post", class="AppBundle:Post", options={"repository_method" = "getPostWithComments"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showPostAction(Post $post)
     {
-        return $this->render('blog/show_post.html.twig', [ 'post' => $post]);
+        $commentForm = $this->createForm(CommentType::class, null, [
+            'action' => $this->generateUrl('comment_new', ['id' => $post->getId()])
+        ]);
+        return $this->render('blog/show_post.html.twig', [
+            'post' => $post,
+            'form' => $commentForm->createView()
+        ]);
     }
 }

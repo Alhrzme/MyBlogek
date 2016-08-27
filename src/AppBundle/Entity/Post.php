@@ -2,11 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Comment;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\PostRepository")
  * @ORM\Table(name="posts")
  */
 class Post {
@@ -14,19 +16,21 @@ class Post {
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
+        $this->comments = new ArrayCollection();
     }
     /**
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id
      */
-    private $postId;
+    private $id;
+
     /**
-     * Assert\NotBlank()
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
-
     private $title;
+
     /**
      * @ORM\Column(type="string")
      * @ORM\Column(length=1023)
@@ -61,23 +65,10 @@ class Post {
     private $createdAt;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
-    private $createdByUserId;
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedByUserId() {
-        return $this->createdByUserId;
-    }
-
-    /**
-     * @param mixed $createdByUserId
-     */
-    public function setCreatedByUserId($createdByUserId) {
-        $this->createdByUserId = $createdByUserId;
-    }
+    private $user;
 
     /**
      * @return mixed
@@ -95,26 +86,22 @@ class Post {
 
 
     /**
-     * Set postId
-     *
-     * @param integer $postId
+     * @param integer $id
      * @return Post
      */
-    public function setPostId($postId)
+    public function setId($id)
     {
-        $this->postId = $postId;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * Get postId
-     *
-     * @return integer 
+     * @return integer
      */
-    public function getPostId()
+    public function getId()
     {
-        return $this->postId;
+        return $this->id;
     }
 
     /**
@@ -141,6 +128,11 @@ class Post {
     }
 
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     */
+    private $comments;
+
+    /**
      * Set body
      *
      * @param string $body
@@ -161,5 +153,62 @@ class Post {
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     * @return Post
+     * @internal param \AppBundle\Entity\Comment $comments
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+        $comment->setPost($this);
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param Comment $comments
+     */
+    public function removeComment(Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return Post
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

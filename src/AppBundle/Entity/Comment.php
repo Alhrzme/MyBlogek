@@ -12,14 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Comment {
     /**
      * @ORM\Column(type="integer")
-     * ORM\GeneratedValue(strategy="AUTO")
-     * ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id
      */
     private $commentId;
 
     /**
      * @ORM\Column(type="string")
-     * Assert\NotBlank(message="empty_comment_body")
+     * @Assert\NotBlank(message="empty_comment_body")
      */
     private $body;
 
@@ -31,13 +31,20 @@ class Comment {
     /**
      * @ORM\Column(type="integer")
      */
-    private $rate;
+    private $rate = 0;
 
     /**
-     * ORM\ManyToOne(targetEntity="User", inversedBy="Comment")
-     * ORM\JoinColumn(name="userId", referencedColumnName="commentId)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @var Post
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumn(name="postId", referencedColumnName="id")
+     */
+    private $post;
 
     /**
      * @return mixed
@@ -100,6 +107,20 @@ class Comment {
      */
     public function getUser() {
         return $this->user;
+    }
+
+    /**
+     * @return Post
+     */
+    public function getPost() {
+        return $this->post;
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function setPost($post) {
+        $this->post = $post;
     }
 
     /**

@@ -9,3 +9,6 @@ href.mainPage.text: Главная
 href.newPost.text: Новый пост
 button.editPost.value: Внести изменения
 button.deletePost.value: Удалить пост
+label.commentBody: Ваш комментарий
+button.addComment.value: Написать
+comment.placeholder: Напишите сюда любой вменяемый комментарий

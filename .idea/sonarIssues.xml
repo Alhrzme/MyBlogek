@@ -58,12 +58,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/Resources/views/blog/_comment_form.html.twig">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/Resources/views/blog/_post_form.html.twig">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/Resources/views/blog/_post_from.html.twig">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/Resources/views/blog/_show_comments.html.twig">
           <value>
             <set />
           </value>
@@ -108,6 +118,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/config/routing.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/config/security.yml">
           <value>
             <set />
@@ -138,12 +153,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/AppBundle/Entity/PostRepository.php">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/AppBundle/Entity/Posts.php">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/AppBundle/Entity/User.php">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/AppBundle/Form/CommentType.php">
           <value>
             <set />
           </value>
@@ -164,6 +189,11 @@
           </value>
         </entry>
         <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/a.regexp">
           <value>
             <set />
           </value>

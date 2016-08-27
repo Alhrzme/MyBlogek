@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_widget(form.body) }}
+</div>
+<input type="submit" value="{{ button_label| default('button.addComment.value'|trans) }}"
+       class="btn btn-default btn-primary" />
+{{ form_end(form) }}

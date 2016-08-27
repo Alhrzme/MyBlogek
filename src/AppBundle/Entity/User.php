@@ -2,110 +2,111 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
 
-class User extends BaseUser{
+/**
+ * Class User
+ * @package AppBundle\Entity
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+    /**
+     * @var integer
+     * @ORM\Id
      * @ORM\Column(type="integer")
-     * ORM\GeneratedValue(strategy="AUTO")
-     * ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $userId;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string", unique=true)
-     * Assert\NotBlank
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
-    private $login;
+    protected $comments;
 
     /**
-     * @return mixed
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
      */
-    public function getLogin() {
-        return $this->login;
+    protected $posts;
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     * @return User
+     */
+    public function addComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
     }
 
     /**
-     * @param mixed $login
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
      */
-    public function setLogin($login) {
-        $this->login = $login;
+    public function removeComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
     }
 
     /**
-     * @return mixed
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getEmail() {
-        return $this->email;
+    public function getComments()
+    {
+        return $this->comments;
     }
 
     /**
-     * @param mixed $email
+     * Add posts
+     *
+     * @param \AppBundle\Entity\Post $posts
+     * @return User
      */
-    public function setEmail($email) {
-        $this->email = $email;
+    public function addPost(\AppBundle\Entity\Post $posts)
+    {
+        $this->posts[] = $posts;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Remove posts
+     *
+     * @param \AppBundle\Entity\Post $posts
      */
-    public function getPassword() {
-        return $this->password;
+    public function removePost(\AppBundle\Entity\Post $posts)
+    {
+        $this->posts->removeElement($posts);
     }
 
     /**
-     * @param mixed $password
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setPassword($password) {
-        $this->password = $password;
+    public function getPosts()
+    {
+        return $this->posts;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getRoles() {
-        return $this->roles;
-    }
-
-    /**
-     * @param mixed $roles
-     */
-    public function setRoles(array $roles) {
-        $this->roles = $roles;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserId() {
-        return $this->userId;
-    }
-
-    /**
-     * @param mixed $userId
-     */
-    public function setUserId($userId) {
-        $this->userId = $userId;
-    }
-
-    /**
-     * @ORM\Column(type="string", unique=true)
-     * Assert\Email
-     */
-    protected $email;
-
-    /**
-     * @ORM\Column(type"string")
-     * Assert\NotBlank
-     */
-    protected $password;
-
-    /**
-     * @ORM\Column(type="json_array")
-     */
-    protected $roles = [];
-
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title|default('default_title') }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <style>
+        #login_box {
+            position: absolute;
+            top: 35%;
+            left: 53%;
+            width: 34%;
+            margin-left: -20%;
+            margin-top: -10%;
+            border-radius: 10px;
+            padding: 0 3% 3% 3%;
+            border: 1px solid black;
+            background-color: white;
+        }
+        body {
+            background-color: black;
+        }
+    </style>
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+
+    <div id="login_box">
+        <div class="page-header">
+            <h2 class="text-center">{{ title|default('default_title')|trans }}</h2>
+        </div>
+        <div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+    </div>
+
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            <div class="{{ type }}">
+                {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+        <div>
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+    </div>
+</body>
+</html>

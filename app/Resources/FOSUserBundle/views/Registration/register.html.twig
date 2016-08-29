@@ -1,0 +1,24 @@
+{% extends '@FOSUser/layout.html.twig' %}
+{% set title = 'registration.title' %}
+
+{% block fos_user_content %}
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr' : {'class' : 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username, {'attr' : {'class' : 'form-control'}}) }}
+    </div>
+    {% for passwordField in form.plainPassword %}
+        <div class="form-group">
+            {{ form_label(passwordField) }}
+            {{ form_widget(passwordField, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    {% endfor %}
+    <div>
+        <input type="submit" class="btn btn-primary" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+    {{ form_end(form) }}
+{% endblock fos_user_content %}

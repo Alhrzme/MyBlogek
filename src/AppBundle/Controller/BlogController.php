@@ -25,6 +25,7 @@ class BlogController extends Controller
     /**
      * List all posts
      * @Route("/", name="home_page")
+     * @Route("/", name="home_page")
      */
     public function indexAction()
     {
@@ -71,7 +72,7 @@ class BlogController extends Controller
             throw $this->createAccessDeniedException();
         }
         $post = new Post();
-        $post->setCreatedByUserId($this->getUser()->getId());
+        $post->setUser($this->getUser());
 
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -95,21 +96,25 @@ class BlogController extends Controller
 
     /**
      * @Route("/delete/{id}", name="delete_post_page")
+     * @param Post $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Post $post)
     {
         $entityManager = $this->getDoctrine()->getManager();
+        $comments = $post->getComments();
+        foreach ($comments as $comment) {
+            $entityManager->remove($comment);
+        }
         $entityManager->remove($post);
         $entityManager->flush();
 
-        return $this->redirectToRoute('admin_post_index');
+        return $this->redirectToRoute('home_page');
     }
 
     /**
      * @Method("POST")
      * @Route("/comment/new/{id}", name="comment_new")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @param Request $request
      * @param Post $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

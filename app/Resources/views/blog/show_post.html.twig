@@ -5,7 +5,7 @@
             {{  post.body | raw }}
     </div>
 
-    {# Этот блок будет только для одминов#}
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="row text-right">
             <a href="{{ path('edit_post_page', {id: post.id}) }}" class="btn btn-primary">
                     {{ 'button.editPost.value'|trans }}
@@ -14,6 +14,7 @@
                     {{ 'button.deletePost.value'|trans }}
             </a>
     </div>
+    {% endif %}
     {{ include('blog/_comment_form.html.twig') }}
     {{ include('blog/_show_comments.html.twig') }}
 

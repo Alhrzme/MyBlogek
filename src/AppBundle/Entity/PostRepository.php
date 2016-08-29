@@ -18,7 +18,7 @@ class PostRepository extends EntityRepository
             ->select('p')
             ->where('p.id = :id')
             ->setParameter(':id', $id)
-            ->innerJoin('p.comments', 'AppBundle:Comment');
+            ->leftJoin('p.comments', 'AppBundle:Comment');
         return $query->getQuery()->getSingleResult();
     }
 }

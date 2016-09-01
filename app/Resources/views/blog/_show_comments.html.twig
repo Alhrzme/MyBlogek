@@ -1,5 +1,8 @@
+<div class="comments_list">
 {% for comment in post.comments %}
     <div class="well">
+        <small>{{ comment.user.username }}</small><br>
         {{ comment.body }}
     </div>
 {% endfor %}
+</div>

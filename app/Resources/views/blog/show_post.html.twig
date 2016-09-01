@@ -1,12 +1,12 @@
 {% extends 'blog/layout.html.twig' %}
 {% set title = post.title %}
 {% block content %}
-    <div style="border-bottom: 1px solid #eee; min-height: 20em;">
+    <div class="post_content">
             {{  post.body | raw }}
     </div>
 
     {% if is_granted('ROLE_ADMIN') %}
-    <div class="row text-right">
+    <div class="admin_buttons_panel">
             <a href="{{ path('edit_post_page', {id: post.id}) }}" class="btn btn-primary">
                     {{ 'button.editPost.value'|trans }}
             </a>

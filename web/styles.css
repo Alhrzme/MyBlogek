@@ -1,0 +1,20 @@
+.post_content {
+    min-height: 20em;
+    margin: 2em auto;
+    border-bottom: 1px solid #eee;
+}
+p {
+    text-indent: 2em;
+}
+.admin_buttons_panel {
+    padding-bottom: 1em;
+    text-align: right;
+}
+.comment_form {
+    padding-bottom: 1em;
+}
+.comments_list {
+    margin: 1em auto;
+    border-top: 1px solid #eee;
+    padding: 1em;
+}

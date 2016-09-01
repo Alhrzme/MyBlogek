@@ -32,8 +32,7 @@ class Post {
     private $title;
 
     /**
-     * @ORM\Column(type="string")
-     * @ORM\Column(length=1023)
+     * @ORM\Column(type="string", length=2048)
      * @Assert\Length(min=10, minMessage="too_shory_post_content")
      */
     private $body;

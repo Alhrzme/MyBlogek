@@ -25,7 +25,6 @@ class BlogController extends Controller
     /**
      * List all posts
      * @Route("/", name="home_page")
-     * @Route("/", name="home_page")
      */
     public function indexAction()
     {

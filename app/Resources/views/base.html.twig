@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{{ title }}{% endblock %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-            <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -27,15 +27,27 @@
                             </a>
                         </li>
                     </ul>
+                    {% if is_granted("ROLE_USER") %}
+                    <ul class="nav navbar-nav navbar-right" style="color: white;">
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <img width="18px" src="{{ asset('exit.jpg') }}" alt="{{ 'logout' |trans }}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('office_home') }}">{{ app.user.username }}</a>
+                        </li>
+                    </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav navbar-right" style="color: white;">
+                            <li>
+                                <a href="{{ path('fos_user_security_login') }}">
+                                    <img width="20px" src="{{ asset('znak.jpg') }}" alt="{{ 'login_title' |trans }}">
+                                </a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        {% if is_granted("ROLE_USER") %}
-                            Hi {{ app.user.username }}
-                        {% endif %}
-                    </li>
-
-                </ul>
             </div>
         </nav>
         {% block body %}{% endblock %}

@@ -10,7 +10,7 @@
 
 <script>
     function addCommentRate(entity, id) {
-        var url = {{ path('add_rate', {id: }) }} '?id=' + id + 'entityString' + entity;
+        var url = {{ path('add_rate') }} '?id=' + id + 'entityString' + entity;
         $.ajax({
             url: url,
             success: function () {

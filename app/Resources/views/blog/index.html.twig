@@ -2,10 +2,44 @@
 {% set title = 'title.mainPage'|trans %}
 {% block content %}
     {% for post in posts %}
-        <div class="well">
-            <a href="{{ path('show_post_page', { id: post.id }) }}">
+        <div class="post_summary">
+            <div class="post_summary_header">
+                <div class="post_publishedAt_time">
+                    <span>
+                        {{ post.createdAt|date('G:i d.m.Y') }}
+                    </span>
+                </div>
+                <a href="{{ path('show_post_page', { id: post.id }) }}">
+                    {{ post.title }}
+                </a>
+            </div>
+            <div class="post_summary_content">
                 {{ post.summary }}
-            </a>
+            </div>
+            <div class="buttons">
+                <a class="btn btn-sm btn-info" href="{{ path('show_post_page', { id: post.id }) }}">
+                    Читать пост
+                </a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and ((app.user.id == post.user.id) or (is_granted("ROLE_ADMIN"))) %}
+                    <a href="{{ path('edit_post_page', {id: post.id}) }}" class="btn btn-sm btn-primary">
+                        {{ 'button.editPost.value'|trans }}
+                    </a>
+                    <a href="{{ path('delete_post', {id: post.id}) }}" class="btn btn-sm btn-danger">
+                        {{ 'button.deletePost.value'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+            <div class="post_footer">
+                <ul class="post_info_panel">
+                    <li class="postInfo_blocks">
+                        <a href="{{ path('office_home', {id: post.user.id}) }}">
+                            {{ post.user.username }}
+                        </a>
+                    </li>
+                    <li class="postInfo_blocks"></li>
+                    <li class="postInfo_blocks"></li>
+                </ul>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}

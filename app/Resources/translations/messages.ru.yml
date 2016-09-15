@@ -17,3 +17,7 @@ default_title: Дефолтный титл
 login_title: Вход в систему
 registration.title: Регистрация
 logout: Выход из системы
+wrote: написал в
+title.office: Личная страница
+title.utility: Полезные материалы
+href.utility.text: Полезности

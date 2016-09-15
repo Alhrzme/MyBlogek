@@ -4,13 +4,14 @@
     <div class="post_content">
             {{  post.body | raw }}
     </div>
-
+    <div class="tags">
+    </div>
     {% if is_granted('ROLE_ADMIN') %}
     <div class="admin_buttons_panel">
             <a href="{{ path('edit_post_page', {id: post.id}) }}" class="btn btn-primary">
                     {{ 'button.editPost.value'|trans }}
             </a>
-            <a href="{{ path('delete_post_page', {id: post.id}) }}" class="btn btn-danger">
+            <a href="{{ path('delete_post', {id: post.id}) }}" class="btn btn-danger">
                     {{ 'button.deletePost.value'|trans }}
             </a>
     </div>

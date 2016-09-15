@@ -1,8 +1,20 @@
 <div class="comments_list">
 {% for comment in post.comments %}
-    <div class="well">
-        <small>{{ comment.user.username }}</small><br>
+    <div class="post_comment">
+        <a href="{{ path('office_home', {id: comment.user.id}) }}">
+            <small>{{ comment.user.username }}</small>
+        </a>
+        <small>{{ 'wrote' | trans }}</small>
+        <small>{{ comment.createdAt | date('d.m.Y G:i') }}</small>
+        <br>
         {{ comment.body }}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') and ((app.user.id == comment.user.id) or (is_granted("ROLE_ADMIN"))) %}
+        <div style="float: right;">
+            <a href="{{ path('delete_comment', {id: comment.id, postId: post.id}) }}" class="btn btn-xs btn-danger">
+                {{ 'button.deletePost.value'|trans }}
+            </a>
+        </div>
+        {% endif %}
     </div>
 {% endfor %}
 </div>

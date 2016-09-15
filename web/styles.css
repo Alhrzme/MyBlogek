@@ -13,8 +13,45 @@ p {
 .comment_form {
     padding-bottom: 1em;
 }
+.post_summary {
+    padding: 0.5em 1em;
+}
+.buttons {
+    padding-top: 1em;
+    text-align: right;
+}
+.post_summary_header {
+    padding-bottom: 1em;
+    font-size: larger;
+}
+.post_publishedAt_time {
+    color: #7c7f7c;
+    font-size: x-small;
+}
+.post_info_panel {
+    padding: 0.5em 0;
+    border-bottom: 1px dashed #999c99  ;
+}
+.postInfo_blocks {
+    display: inline;
+    margin: 0;
+    padding: 0 0.8em 0 0;
+}
+.post_summary_content {
+    text-indent: 1em;
+}
 .comments_list {
     margin: 1em auto;
     border-top: 1px solid #eee;
     padding: 1em;
+}
+.post_comment {
+    padding: 0.5em 1em;
+    background-color:rgba(254, 255, 203, 0.27) ;
+    margin-bottom: 0.5em;
+}
+footer {
+    height: 5em;
+    margin-top: 2em;
+    background: linear-gradient(to top, rgba(77, 79, 77, 0.27), white);
 }

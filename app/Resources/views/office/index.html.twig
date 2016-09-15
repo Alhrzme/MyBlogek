@@ -1,0 +1,12 @@
+{% extends 'office/layout.html.twig' %}
+{% set title = user.username %}
+{% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+    {% if (app.user.id == user.id) %}
+        {% set title = 'title.office' |trans %}
+    {% endif %}
+{% endif %}
+
+{% block content %}
+    Email:  {{ user.email }}
+
+{% endblock %}

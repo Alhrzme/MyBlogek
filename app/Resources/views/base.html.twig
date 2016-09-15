@@ -26,6 +26,11 @@
                                 {{ 'href.newPost.text'|trans }}
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ path('utility_home') }}">
+                                {{ 'href.utility.text'|trans}}
+                            </a>
+                        </li>
                     </ul>
                     {% if is_granted("ROLE_USER") %}
                     <ul class="nav navbar-nav navbar-right" style="color: white;">
@@ -35,7 +40,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('office_home') }}">{{ app.user.username }}</a>
+                            <a href="{{ path('office_home', {id: app.user.id}) }}">{{ app.user.username }}</a>
                         </li>
                     </ul>
                     {% else %}

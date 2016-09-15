@@ -4,9 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Tag;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\PostType;
-use Symfony\Bridge\PsrHttpMessage\Tests\Fixtures\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,7 +33,7 @@ class BlogController extends Controller
 
         $posts = $em->getRepository(Post::class)->findAll();
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts));
+        return $this->render('blog/index.html.twig', array('posts' => $posts, 'phpversion' => phpversion()));
     }
 
     /**
@@ -43,12 +44,13 @@ class BlogController extends Controller
      */
     public function editAction( Request $request, Post $post)
     {
+        if (!($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
+            || $post->isAuthor($this->getUser()))) {
+            throw $this->createAccessDeniedException();
+        }
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $bodyText = $post->getBody();
-            $resultBodyText = $this->get('textHandler')->makeParagraphMarkup($bodyText);
-            $post->setBody($resultBodyText);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -77,13 +79,12 @@ class BlogController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bodyText = $post->getBody();
-            $resultBodyText = $this->get('textHandler')->makeParagraphMarkup($bodyText);
-            $post->setBody($resultBodyText);
+            $tag = new Tag();
+            $tag->setTagName('Первый тег');
+            $post->addTag($tag);
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
-
             $this->addFlash('success', 'Пост успешно создан');
             return $this->redirectToRoute('show_post_page', ['id' => $post->getId()] );
         }
@@ -94,12 +95,16 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="delete_post_page")
+     * @Route("/delete/{id}", name="delete_post")
      * @param Post $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Post $post)
     {
+        if (!($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
+            || $post->isAuthor($this->getUser()))) {
+            throw $this->createAccessDeniedException();
+        }
         $entityManager = $this->getDoctrine()->getManager();
         $comments = $post->getComments();
         foreach ($comments as $comment) {
@@ -109,6 +114,22 @@ class BlogController extends Controller
         $entityManager->flush();
 
         return $this->redirectToRoute('home_page');
+    }
+
+    /**
+     * @Route("/deleteComment/{id}/{postId}", name="delete_comment")
+     * @param Comment $comment
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteCommentAction(Comment $comment, $postId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($comment);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_post_page', [
+            'id' => $postId
+        ]);
     }
 
     /**
@@ -154,5 +175,27 @@ class BlogController extends Controller
             'post' => $post,
             'form' => $commentForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/addRate", name="add_rate")
+     * @return int
+     * @param string("post"|"comment") $entityString
+     * @param int $id
+     * @return int
+     */
+    public function addRateAction($entityString, $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        if ($entityString == 'post') {
+            $repository = $entityManager->getRepository(Post::class);
+        } else {
+            $repository = $entityManager->getRepository(Comment::class);
+        }
+        $entity = $repository->find($id);
+        $entity->setRate($entity->getRate() + 1);
+        $entityManager->persist($entity);
+        $entityManager->flush();
+        return $entity->getRate();
     }
 }

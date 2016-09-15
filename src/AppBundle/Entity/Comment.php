@@ -10,12 +10,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="comments")
  */
 class Comment {
+
+    public function __construct()
+    {
+        $this->rate = 0;
+    }
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id
      */
-    private $commentId;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
@@ -29,9 +35,10 @@ class Comment {
     private $createdAt;
 
     /**
+     * @var int
      * @ORM\Column(type="integer")
      */
-    private $rate = 0;
+    private $rate;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
@@ -49,15 +56,15 @@ class Comment {
     /**
      * @return mixed
      */
-    public function getCommentId() {
-        return $this->commentId;
+    public function getId() {
+        return $this->id;
     }
 
     /**
-     * @param mixed $commentId
+     * @param mixed $id
      */
-    public function setCommentId($commentId) {
-        $this->commentId = $commentId;
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**
@@ -89,14 +96,14 @@ class Comment {
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getRate() {
         return $this->rate;
     }
 
     /**
-     * @param mixed $rate
+     * @param int $rate
      */
     public function setRate($rate) {
         $this->rate = $rate;

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Comment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,6 +16,8 @@ class Post {
     {
         $this->setCreatedAt(new \DateTime());
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->rate = 0;
     }
     /**
      * @ORM\Column(type="integer")
@@ -24,6 +25,55 @@ class Post {
      * @ORM\Id
      */
     private $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", mappedBy="posts", cascade={"persist"})
+     */
+    private $tags;
+
+    /**
+     * @return integer
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    /**
+     * @param int $rate
+     */
+    public function setRate(int $rate) {
+        $this->rate = $rate;
+    }
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    private $rate;
+
+    /**
+     * @return mixed
+     */
+    public function getTags() {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags) {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @param User|null $user
+     * @return bool
+     */
+    public function isAuthor(User $user = null)
+    {
+        return $user && $user == $this->getUser();
+    }
 
     /**
      * @Assert\NotBlank()
@@ -128,6 +178,7 @@ class Post {
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\JoinColumn(name="commentId", referencedColumnName="id", onDelete="CASCADE")
      */
     private $comments;
 
@@ -191,14 +242,20 @@ class Post {
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param User $user
      * @return Post
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
         return $this;
+    }
+
+    public function addTag(Tag $tag)
+    {
+        $tag->addPost($this);
+        $this->tags[] = $tag;
     }
 
     /**

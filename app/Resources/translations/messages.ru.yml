@@ -4,12 +4,13 @@ label.postBody: Содержание поста
 label.postSummary: Краткое содержание
 title.createPost: Создание поста
 title.editPost: Редактирование поста
-title.mainPage: Бложек
+title.mainPage: Записки
 button.createPost.value: Создать
 href.mainPage.text: Главная
 href.newPost.text: Новый пост
 button.editPost.value: Внести изменения
 button.deletePost.value: Удалить пост
+button.deleteComment.value: Удалить
 label.commentBody: Ваш комментарий
 button.addComment.value: Написать
 comment.placeholder: Напишите сюда любой вменяемый комментарий

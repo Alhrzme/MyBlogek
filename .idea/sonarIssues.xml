@@ -188,6 +188,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/SymfonyRequirements.php">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/config/config.yml">
           <value>
             <set />
@@ -209,6 +214,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/config/services.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/composer.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/composer.lock">
           <value>
             <set />
           </value>
@@ -293,6 +308,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/AppBundle/Tests/Controller/DefaultControllerTest.php">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/AppBundle/Utils/TextHandler.php">
           <value>
             <set />
@@ -354,6 +374,11 @@
           </value>
         </entry>
         <entry key="dbtable:/945a4474/6ef4f2b1-21f5-49aa-ae41-3d677824d28f/Blogek_db.posts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="dbtable:/945a4474/a3e85b1b-4480-4f6c-8fe7-08889af938de/Blogek_db.ext_log_entries">
           <value>
             <set />
           </value>

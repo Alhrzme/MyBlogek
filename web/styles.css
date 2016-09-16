@@ -1,3 +1,7 @@
+h1 {
+    font-family: "Comic Sans MS", serif;
+}
+
 .post_content {
     min-height: 20em;
     margin: 2em auto;
@@ -23,6 +27,7 @@ p {
 .post_summary_header {
     padding-bottom: 1em;
     font-size: larger;
+    font-family: "bookman old style",serif;
 }
 .post_publishedAt_time {
     color: #7c7f7c;
@@ -39,6 +44,7 @@ p {
 }
 .post_summary_content {
     text-indent: 1em;
+    font-family: "lucida console", serif;
 }
 .comments_list {
     margin: 1em auto;

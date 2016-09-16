@@ -10,8 +10,8 @@
         {{ comment.body }}
         {% if is_granted('IS_AUTHENTICATED_FULLY') and ((app.user.id == comment.user.id) or (is_granted("ROLE_ADMIN"))) %}
         <div style="float: right;">
-            <a href="{{ path('delete_comment', {id: comment.id, postId: post.id}) }}" class="btn btn-xs btn-danger">
-                {{ 'button.deletePost.value'|trans }}
+            <a onclick="return confirm('ТОЧНО УДАЛИТЬ???')" href="{{ path('delete_comment', {id: comment.id, postId: post.id}) }}" class="btn btn-xs btn-danger">
+                {{ 'button.deleteComment.value'|trans }}
             </a>
         </div>
         {% endif %}

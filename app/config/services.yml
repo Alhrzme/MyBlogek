@@ -10,6 +10,7 @@ services:
                 - { name: twig.extension }
      texthandler:
             class: AppBundle\Utils\TextHandler
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

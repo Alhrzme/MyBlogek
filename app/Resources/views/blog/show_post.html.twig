@@ -11,7 +11,7 @@
             <a href="{{ path('edit_post_page', {id: post.id}) }}" class="btn btn-primary">
                     {{ 'button.editPost.value'|trans }}
             </a>
-            <a href="{{ path('delete_post', {id: post.id}) }}" class="btn btn-danger">
+            <a onclick="return confirm('УДАЛИТЬ?')" href="{{ path('delete_post', {id: post.id}) }}" class="btn btn-danger">
                     {{ 'button.deletePost.value'|trans }}
             </a>
     </div>

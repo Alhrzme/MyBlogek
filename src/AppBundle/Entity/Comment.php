@@ -4,10 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="comments")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Comment {
 
@@ -15,6 +20,20 @@ class Comment {
     {
         $this->rate = 0;
     }
+
+    /**
+     * Hook softdeleteable behavior
+     * deletedAt field
+     */
+    use SoftDeleteableEntity;
+
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    use BlameableEntity;
 
     /**
      * @ORM\Column(type="integer")
@@ -28,11 +47,6 @@ class Comment {
      * @Assert\NotBlank(message="empty_comment_body")
      */
     private $body;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
 
     /**
      * @var int
@@ -79,20 +93,6 @@ class Comment {
      */
     public function setBody($body) {
         $this->body = $body;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt() {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param mixed $createdAt
-     */
-    public function setCreatedAt($createdAt) {
-        $this->createdAt = $createdAt;
     }
 
     /**

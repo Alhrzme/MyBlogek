@@ -4,21 +4,54 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PostRepository")
  * @ORM\Table(name="posts")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
  */
 class Post {
 
+    /**
+     * Hook softdeleteable behavior
+     * deletedAt field
+     */
+    use SoftDeleteableEntity;
+
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * Hook blameable behavior
+     * updates createdBy, updatedBy fields
+     */
+    use BlameableEntity;
+
+    /**
+     * Hook ip-traceable behavior
+     * updates createdFromIp, updatedFromIp fields
+     */
+    use IpTraceableEntity;
+
     public function __construct()
     {
-        $this->setCreatedAt(new \DateTime());
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->rate = 0;
     }
+
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -78,12 +111,14 @@ class Post {
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
+     * @Gedmo\Versioned
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=2048)
      * @Assert\Length(min=10, minMessage="too_shory_post_content")
+     * @Gedmo\Versioned
      */
     private $body;
 
@@ -107,31 +142,12 @@ class Post {
         $this->summary = $summary;
     }
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
-     */
-    private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
      * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $user;
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt() {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param mixed $createdAt
-     */
-    public function setCreatedAt($createdAt) {
-        $this->createdAt = $createdAt;
-    }
 
 
     /**

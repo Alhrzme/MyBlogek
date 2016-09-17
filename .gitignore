@@ -6,8 +6,10 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /.idea/
+*.php~
 /app/phpunit.xml
 /build/
 /vendor/
 /bin/
 /composer.phar
+app/Resources/form/

@@ -5,11 +5,16 @@ parameters:
 
 services:
      twig.extension.text:
-            class: Twig_Extensions_Extension_Text
-            tags:
-                - { name: twig.extension }
-     texthandler:
-            class: AppBundle\Utils\TextHandler
+         class: Twig_Extensions_Extension_Text
+         tags:
+             - { name: twig.extension }
+
+     paragrpaph.output:
+         class: AppBundle\Twig\ParagraphOutput
+         public: false
+         tags:
+             - { name: twig.extension }
+
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName

@@ -43,7 +43,7 @@ class Comment {
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=2048)
      * @Assert\NotBlank(message="empty_comment_body")
      */
     private $body;

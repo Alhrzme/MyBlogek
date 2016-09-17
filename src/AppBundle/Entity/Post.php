@@ -110,7 +110,7 @@ class Post {
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=2048)
      * @Gedmo\Versioned
      */
     private $title;
@@ -124,7 +124,8 @@ class Post {
 
     /**
      * @Assert\NotBlank
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=2048)
+     * @Gedmo\Versioned()
      */
     private $summary;
 

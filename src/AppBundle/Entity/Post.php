@@ -59,7 +59,7 @@ class Post {
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", mappedBy="posts", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", mappedBy="posts", cascade={"persist", "remove"})
      */
     private $tags;
 

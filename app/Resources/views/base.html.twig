@@ -12,6 +12,8 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    <div id="wrapper">
+    <header>
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse">
@@ -55,7 +57,12 @@
                 </div>
             </div>
         </nav>
+    </header>
+    <div id="content">
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+    </div>
+    <footer></footer>
+    </div>
     </body>
 </html>

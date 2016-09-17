@@ -1,3 +1,7 @@
+html,
+body {
+    height: 100%;
+}
 h1 {
     font-family: "Comic Sans MS", serif;
 }
@@ -60,7 +64,17 @@ p {
     margin: 0;
 }
 footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
     height: 5em;
-    margin-top: 2em;
     background: linear-gradient(to top, rgba(77, 79, 77, 0.27), white);
+}
+#content {
+    padding-bottom: 7em;
+}
+div#wrapper {
+    position: relative;
+    min-height: 100%;
 }

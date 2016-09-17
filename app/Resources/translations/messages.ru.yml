@@ -2,18 +2,24 @@ welcome: Добро пожаловать
 label.postTitle: 'Заголовок поста'
 label.postBody: Содержание поста
 label.postSummary: Краткое содержание
+label.tagTitle: Теги
 title.createPost: Создание поста
 title.editPost: Редактирование поста
 title.mainPage: Записки
 button.createPost.value: Создать
 href.mainPage.text: Главная
 href.newPost.text: Новый пост
+flash_bag.new_post.success.message: Пост успешно создан
 button.editPost.value: Внести изменения
 button.deletePost.value: Удалить пост
 button.deleteComment.value: Удалить
 label.commentBody: Ваш комментарий
 button.addComment.value: Написать
 comment.placeholder: Напишите сюда любой вменяемый комментарий
+placeholder.post.body: Хотелось бы увидеть здесь что-то полезное и интересное...
+placeholder.post.title: Заголовок годной записи
+placeholder.post.tages: Тут какие-нибудь теги можете написать, чтоб потом проще найти было. А можете и не писать...
+placeholder.post.summary: Краткое содержание поста... Хотя можете и не писать
 default_title: Дефолтный титл
 login_title: Вход в систему
 registration.title: Регистрация

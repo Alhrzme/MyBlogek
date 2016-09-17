@@ -1,5 +1,6 @@
 {% extends 'blog/layout.html.twig' %}
 {% set title = post.title %}
+
 {% block content %}
     <div class="post_content">
             {{  post.body|paragraph | raw }}

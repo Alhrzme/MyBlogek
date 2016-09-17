@@ -7,14 +7,14 @@ use AppBundle\Entity\Post;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\PostType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class BlogController
@@ -33,14 +33,14 @@ class BlogController extends Controller
 
         $posts = $em->getRepository(Post::class)->findAll();
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts, 'phpversion' => phpversion()));
+        return $this->render('blog/index.html.twig', array('posts' => $posts));
     }
 
     /**
      * @Route("/edit/{id}", name="edit_post_page")
      * @param Post $post
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function editAction( Request $request, Post $post)
     {
@@ -49,8 +49,18 @@ class BlogController extends Controller
             throw $this->createAccessDeniedException();
         }
         $form = $this->createForm(PostType::class, $post);
+        if ($post->getTags()) {
+            $tagString = '';
+            foreach ($post->getTags() as $tag) {
+                /** @var Tag $tag */
+                $tagString .= $tag->getTagName() . ' ';
+            }
+            $form['tags']->setData($tagString);
+        }
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $post = $this->handlePostData($post, $form);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -62,30 +72,38 @@ class BlogController extends Controller
         ]);
     }
 
+    private function handlePostData(Post $post, Form $form) {
+        if (empty($post->getSummary())) {
+            $summary = $this->get('content.handler')->getSummary($post->getBody());
+            $post->setSummary($summary);
+        }
+
+        if (!empty($tagString = $form['tags']->getData())) {
+            $tagArray = $this->get('tag.handler')->tagStringToArray($tagString);
+            $post->setTags($tagArray);
+        }
+        return $post;
+    }
+
     /**
      * @Route("/new", name="create_post_page")
      * @param Request $request
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
-        }
         $post = new Post();
         $post->setUser($this->getUser());
 
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $tag = new Tag();
-            $tag->setTagName('Первый тег');
-            $post->addTag($tag);
+            $post = $this->handlePostData($post, $form);
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
-            $this->addFlash('success', 'Пост успешно создан');
+            $this->addFlash('success', 'flash_bag.new_post.success.message');
             return $this->redirectToRoute('show_post_page', ['id' => $post->getId()] );
         }
         return $this->render('blog/new.html.twig', [

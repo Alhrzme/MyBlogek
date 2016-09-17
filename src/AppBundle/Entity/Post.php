@@ -51,7 +51,6 @@ class Post {
         $this->rate = 0;
     }
 
-
     /**
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -75,7 +74,8 @@ class Post {
     /**
      * @param int $rate
      */
-    public function setRate(int $rate) {
+    public function setRate(int $rate)
+    {
         $this->rate = $rate;
     }
 
@@ -88,15 +88,22 @@ class Post {
     /**
      * @return mixed
      */
-    public function getTags() {
+    public function getTags()
+    {
         return $this->tags;
     }
 
     /**
-     * @param mixed $tags
+     * @param Tag[] $tags
      */
-    public function setTags($tags) {
-        $this->tags = $tags;
+    public function setTags($tags)
+    {
+        $thisTags = $this->tags->toArray();
+        foreach ($tags as $tag) {
+            if (!in_array($tag, $thisTags)) {
+                $this->addTag($tag);
+            }
+        }
     }
 
     /**
@@ -123,7 +130,6 @@ class Post {
     private $body;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=2048)
      * @Gedmo\Versioned()
      */
@@ -132,14 +138,16 @@ class Post {
     /**
      * @return mixed
      */
-    public function getSummary() {
+    public function getSummary()
+    {
         return $this->summary;
     }
 
     /**
      * @param mixed $summary
      */
-    public function setSummary($summary) {
+    public function setSummary($summary)
+    {
         $this->summary = $summary;
     }
 

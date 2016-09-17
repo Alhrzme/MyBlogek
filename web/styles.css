@@ -56,6 +56,9 @@ p {
     background-color:rgba(254, 255, 203, 0.27) ;
     margin-bottom: 0.5em;
 }
+.post_comment p {
+    margin: 0;
+}
 footer {
     height: 5em;
     margin-top: 2em;

@@ -5,9 +5,9 @@
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
+/.idea/
 /app/phpunit.xml
 /build/
 /vendor/
 /bin/
 /composer.phar
-/.idea

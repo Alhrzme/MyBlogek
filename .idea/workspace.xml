@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="614c396a-9bd8-4b1e-8508-f4ee6943db8f" name="Default" comment="commit">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+    <list default="true" id="614c396a-9bd8-4b1e-8508-f4ee6943db8f" name="Default" comment="удалены папки IDE">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyBlogek.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,11 +68,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/styles.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="18" column="1" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -175,7 +185,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Admin/PostAdmin.php" />
         <option value="$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Bundle/SecurityBundle/Tests/Functional/Bundle/FormLoginBundle/Resources/config/routing.yml" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/UserRepository.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/OfficeController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/office/index.html.twig" />
@@ -212,6 +221,7 @@
         <option value="$PROJECT_DIR$/app/Resources/views/blog/index.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/translations/messages.ru.yml" />
         <option value="$PROJECT_DIR$/web/styles.css" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -472,7 +482,7 @@
       <workItem from="1473872312390" duration="2551000" />
       <workItem from="1473957125291" duration="16865000" />
       <workItem from="1474066139715" duration="344000" />
-      <workItem from="1474097474568" duration="95000" />
+      <workItem from="1474097474568" duration="226000" />
     </task>
     <task id="LOCAL-00001" summary="First commit.">
       <created>1471801412741</created>
@@ -516,11 +526,18 @@
       <option name="project" value="LOCAL" />
       <updated>1473958111265</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="удалены папки IDE">
+      <created>1474097828585</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1474097828585</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140862000" />
+    <option name="totallyTimeSpent" value="140993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -588,7 +605,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="First commit." />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="удалены папки IDE" />
+    <option name="LAST_COMMIT_MESSAGE" value="удалены папки IDE" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1019,18 +1037,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="1" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
           <folding />
         </state>
       </provider>

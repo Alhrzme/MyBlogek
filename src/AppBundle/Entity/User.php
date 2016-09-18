@@ -71,6 +71,27 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @return string
+     */
+    public function getDisplayedName()
+    {
+        return $this->displayedName;
+    }
+
+    /**
+     * @param string $displayedName
+     */
+    public function setDisplayedName($displayedName) {
+        $this->displayedName = $displayedName;
+    }
+
+    /**
+     * @var string
+     * @ORM\Column()
+     */
+    protected $displayedName;
+
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     protected $comments;

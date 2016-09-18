@@ -74,7 +74,7 @@ class Post {
     /**
      * @param int $rate
      */
-    public function setRate(int $rate)
+    public function setRate($rate)
     {
         $this->rate = $rate;
     }

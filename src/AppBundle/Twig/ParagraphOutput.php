@@ -14,7 +14,7 @@ class ParagraphOutput extends \Twig_Extension
 
     public function paragraphFilter($text)
     {
-        return '<p>'.str_replace("\n",'</p><p>',$text).'</p>';
+        return '<p>'.str_replace('\n','</p><p>',$text).'</p>';
     }
     
     public function getName() {

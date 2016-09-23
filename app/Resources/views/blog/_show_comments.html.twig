@@ -1,20 +1,22 @@
 <div class="comments_list">
 {% for comment in post.comments %}
     <div class="post_comment">
-        <a href="{{ path('office_home', {id: comment.user.id}) }}">
-            <small>{{ comment.user.username }}</small>
-        </a>
-        <small>{{ 'wrote' | trans }}</small>
-        <small>{{ comment.createdAt | date('d.m.Y G:i') }}</small>
-        <br>
-        {{ comment.body|paragraph|raw }}
         {% if is_granted('IS_AUTHENTICATED_FULLY') and ((app.user.id == comment.user.id) or (is_granted("ROLE_ADMIN"))) %}
-        <div style="float: right;">
-            <a onclick="return confirm('{{ 'delete_confirm_message'|trans}}')" href="{{ path('delete_comment', {id: comment.id, postId: post.id}) }}" class="btn btn-xs btn-danger">
-                {{ 'button.deleteComment.value'|trans }}
-            </a>
-        </div>
+            <div class="comment_buttons">
+                <a onclick="return confirm('{{ 'delete_confirm_message'|trans}}')" href="{{ path('delete_comment', {id: comment.id, postId: post.id}) }}" class="btn btn-sm btn-danger">
+                    {{ 'button.deleteComment.value'|trans }}
+                </a>
+            </div>
         {% endif %}
+        <div class="comment_content">
+            <a href="{{ path('office_home', {id: comment.user.id}) }}">
+                <small>{{ comment.user.username }}</small>
+            </a>
+            <small>{{ 'wrote' | trans }}</small>
+            <small>{{ comment.createdAt | date('d.m.Y G:i') }}</small>
+            <br>
+            {{ comment.body|paragraph|raw }}
+        </div>
     </div>
 {% endfor %}
 </div>

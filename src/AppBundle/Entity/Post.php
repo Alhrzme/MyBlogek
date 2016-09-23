@@ -117,7 +117,8 @@ class Post {
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=2048)
+     * @ORM\Column(type="string")
+     * @Assert\Length(max=50, maxMessage="too_long_post_title"))
      * @Gedmo\Versioned
      */
     private $title;

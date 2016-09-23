@@ -137,10 +137,10 @@ class User extends BaseUser
     /**
      * Add posts
      *
-     * @param \AppBundle\Entity\Post $posts
+     * @param Post $posts
      * @return User
      */
-    public function addPost(\AppBundle\Entity\Post $posts)
+    public function addPost(Post $posts)
     {
         $this->posts[] = $posts;
 
@@ -150,7 +150,7 @@ class User extends BaseUser
     /**
      * Remove posts
      *
-     * @param \AppBundle\Entity\Post $posts
+     * @param Post $posts
      */
     public function removePost(Post $posts)
     {

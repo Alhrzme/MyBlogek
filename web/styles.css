@@ -5,9 +5,10 @@ body {
 h1 {
     font-family: "Comic Sans MS", serif;
 }
-
-.post_content {
+.post_body {
     min-height: 20em;
+}
+.post_content {
     margin: 2em auto;
     border-bottom: 1px solid #eee;
 }
@@ -16,13 +17,19 @@ p {
 }
 .admin_buttons_panel {
     padding-bottom: 1em;
-    text-align: right;
+    float: right;
+}
+.comment_buttons {
+    float:right;
+    margin: 0.3em;
 }
 .comment_form {
     padding-bottom: 1em;
 }
 .post_summary {
     padding: 0.5em 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px dashed #999c99  ;
 }
 .buttons {
     padding-top: 1em;
@@ -39,14 +46,13 @@ p {
 }
 .post_info_panel {
     padding: 0.5em 0;
-    border-bottom: 1px dashed #999c99  ;
 }
 .postInfo_blocks {
     display: inline;
     margin: 0;
     padding: 0 0.8em 0 0;
 }
-.post_summary_content {
+.post_summary_content, .post_body {
     text-indent: 1em;
     font-family: "lucida console", serif;
 }
@@ -63,6 +69,10 @@ p {
 .post_comment p {
     margin: 0;
 }
+.header_post_info {
+    font-size: x-small;
+    float: left;
+}
 footer {
     position: absolute;
     width: 100%;
@@ -77,4 +87,8 @@ footer {
 div#wrapper {
     position: relative;
     min-height: 100%;
+}
+.tag {
+    padding: 0.5em;
+    margin-right: 0.5em;
 }
